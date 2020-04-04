@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using ProaAgil.Repository.Data;
+using ProAgil.Repository.Interface;
+using ProAgil.Repository.Repository;
 
 namespace ProaAgil.Application {
     public class Startup {
@@ -24,10 +26,10 @@ namespace ProaAgil.Application {
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices (IServiceCollection services) {
             services.AddControllers ();
-               services.AddCors ();
+            services.AddCors ();
             services.AddMvc (options => options.EnableEndpointRouting = false);
             services.AddDbContext<DataContext> (x => x.UseSqlite (Configuration.GetConnectionString ("DefaultConnection")));
-         
+            services.AddScoped<IRepositoryBase, RepositoryBase>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
