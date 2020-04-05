@@ -14,6 +14,7 @@ namespace ProAgil.Repository.Repository
         public RepositoryBase(DataContext contexto)
         {
             _contexto = contexto;
+        //  _contexto.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking();
         }
         public void Add<T>(T entity) where T : class
         {
@@ -45,7 +46,9 @@ namespace ProAgil.Repository.Repository
                     .Include(x => x.PalestranteEventos)
                     .ThenInclude(x => x.Palestrante);
             }
-            query = query.OrderByDescending( c => c.DataEvento);
+            query = query
+                .AsNoTracking()
+                .OrderByDescending( c => c.DataEvento);
             return await query.ToArrayAsync();
 
         }
@@ -62,8 +65,10 @@ namespace ProAgil.Repository.Repository
                     .Include(x => x.PalestranteEventos)
                     .ThenInclude(x => x.Palestrante);
             }
-            query = query.OrderByDescending( c => c.DataEvento)
-                .Where( c => c.Tema.Contains(tema));
+            query = query
+                 .AsNoTracking()
+                 .OrderByDescending( c => c.DataEvento)
+                 .Where( c => c.Tema.Contains(tema));
             return await query.ToArrayAsync();
         }
 
@@ -81,8 +86,11 @@ namespace ProAgil.Repository.Repository
                     .Include(x => x.PalestranteEventos)
                     .ThenInclude(x => x.Palestrante);
             }
-            query = query.OrderByDescending( c => c.DataEvento)
+            query = query
+                .AsNoTracking()
+                .OrderByDescending( c => c.DataEvento)
                 .Where( c => c.Id == EventoId);
+
             return await query.FirstOrDefaultAsync();
         }
 
@@ -97,7 +105,9 @@ namespace ProAgil.Repository.Repository
                     .Include(x => x.PalestranteEventos)
                     .ThenInclude(x => x.Evento);
             }
-            query = query.OrderBy( x => x.Nome)
+            query = query
+                .AsNoTracking()
+                .OrderBy( x => x.Nome)
                 .Where (x => x.Id == PalestranteId);
                 
                     

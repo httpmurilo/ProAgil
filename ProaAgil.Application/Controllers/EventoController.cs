@@ -8,26 +8,31 @@ namespace ProaAgil.Application.Controllers
 {
      [Route("api/[controller]")]
       [ApiController]
-    public class EventoController : ControllerBase {
+    public class EventoController : ControllerBase 
+    {
         public readonly IRepositoryBase _repository;
-        public EventoController (IRepositoryBase repository) {
+        public EventoController (IRepositoryBase repository)
+        {
             _repository = repository;
         }
 
         [HttpGet]
-        public async Task<IActionResult> ObterTodosEventos () {
+        public async Task<IActionResult> ObterTodosEventos () 
+        {
             var resultados = await _repository.GetAllEventoAsync (true);
             return Ok (resultados);
         }
 
         [HttpGet ("{id}")]
-        public async Task<IActionResult> ObterEventoPorId (int eventoId) {
+        public async Task<IActionResult> ObterEventoPorId (int eventoId) 
+        {
             var resultados = await _repository.GetEventoAsyncById (eventoId, true);
             return Ok (resultados);
         }
 
         [HttpGet ("getByTema/{tema}")]
-        public async Task<IActionResult> ObterEventosPorTema (string tema) {
+        public async Task<IActionResult> ObterEventosPorTema (string tema) 
+        {
             var resultados = await _repository.GetAllEventoAsyncByTema (tema, true);
             return Ok (resultados);
         }
@@ -46,7 +51,7 @@ namespace ProaAgil.Application.Controllers
 
         }
 
-        [HttpPut]
+        [HttpPut("{EventoId}")]
         public async Task<IActionResult> AlterarDadosDoEvento (int eventoId, Evento evento) 
         {
             var resultados = await _repository.GetEventoAsyncById (eventoId, false);
