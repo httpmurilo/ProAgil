@@ -8,7 +8,7 @@ namespace ProaAgil.Application.Controllers
 {
      [Route("api/[controller]")]
       [ApiController]
-    public class EventoController : ControllerBase 
+    public class EventoController : ControllerBase
     {
         public readonly IRepositoryBase _repository;
         public EventoController (IRepositoryBase repository)
@@ -41,12 +41,13 @@ namespace ProaAgil.Application.Controllers
         public async Task<IActionResult> AdicionarEventos (Evento evento) 
         {
            
+     
             _repository.Add (evento);
             if (await _repository.SaveChangesAsync ()) {
                 return Created ($"/api/evento/{evento.Id}", evento);
             } 
             else {
-                return BadRequest ();
+                return StatusCode(412);
             }
 
         }
@@ -61,9 +62,9 @@ namespace ProaAgil.Application.Controllers
             } 
             else 
             {
-                _repository.Update (resultados);
+                _repository.Update (evento);
                 await _repository.SaveChangesAsync ();
-                return Created ($"/api/evento/{evento.Id}", resultados);
+                return Ok (evento);
 
             }
         }
@@ -82,5 +83,6 @@ namespace ProaAgil.Application.Controllers
                 return Ok ();
             }
         }
-        }
+
+    }
     }
