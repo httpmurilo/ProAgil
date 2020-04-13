@@ -80,7 +80,7 @@ namespace ProaAgil.Application.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{eventoId}")]
         public async Task<IActionResult> DeletarRegistro(int eventoId)
         {
             var resultado = await _repository.GetEventoAsyncById(eventoId,false);
@@ -91,6 +91,7 @@ namespace ProaAgil.Application.Controllers
             else
             {
                 _repository.Delete(resultado);
+                await _repository.SaveChangesAsync ();
                 return Ok ();
             }
         }
