@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -29,6 +31,27 @@ namespace ProaAgil.Application.Controllers
             var retorno = _mapper.Map<IEnumerable<EventoDto>>(resultados);
             return Ok (retorno);
         }
+
+       [HttpPost("upload")]
+        public async Task<IActionResult> UploadImagem () 
+        {
+            var file = Request.Form.Files[0];
+            var folderName = Path.GetDirectoryName("Resources");
+            var pathToSave = Path.Combine(Directory.GetCurrentDirectory(),folderName);
+            
+            if(file.Length > 0)
+            {
+                var filename = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName;
+                var fullPath = Path.Combine(pathToSave, filename.Replace("\"","").Trim());
+                
+                using(var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+            }
+            return Ok();
+        }
+
 
         [HttpGet ("{eventoId}")]
         public async Task<IActionResult> ObterEventoPorId (int eventoId) 
