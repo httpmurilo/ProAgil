@@ -18,17 +18,18 @@ export class EventosComponent implements OnInit {
   eventosFiltrados: Evento[];
   eventos: Evento[];
   evento: Evento;
-  modoSalvar = "post";
+  modoSalvar = 'post';
   imagemLargura = 50;
   imagemMargem = 2;
   mostrarImagem = false;
   registerForm: FormGroup;
-  bodyDeletarEvento = "";
+  bodyDeletarEvento = '';
 titulo = 'Eventos';
-  _filtroLista = "";
+  _filtroLista = '';
 file: File;
 fileNameToUpdate: string;
 dataAtual: string;
+dataEvento: string;
 
 
   constructor(
@@ -52,14 +53,14 @@ dataAtual: string;
   }
 
   editarEvento(evento: Evento, template: any) {
-    this.modoSalvar = "put";
+    this.modoSalvar = 'put';
     this.openModal(template);
     this.evento = Object.assign({}, evento);
     this.registerForm.patchValue(this.evento);
   }
 
   novoEvento(template: any) {
-    this.modoSalvar = "post";
+    this.modoSalvar = 'post';
     this.openModal(template);
   }
   openModal(template: any) {

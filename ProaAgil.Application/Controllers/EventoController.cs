@@ -4,6 +4,7 @@ using System.IO;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProAgil.Domain;
 using ProAgil.Domain.Dtos;
@@ -32,24 +33,35 @@ namespace ProaAgil.Application.Controllers
             return Ok (retorno);
         }
 
-       [HttpPost("upload")]
-        public async Task<IActionResult> UploadImagem () 
+     [HttpPost("upload")]
+        public async Task<IActionResult> Upload()
         {
-            var file = Request.Form.Files[0];
-            var folderName = Path.GetDirectoryName("Resources");
-            var pathToSave = Path.Combine(Directory.GetCurrentDirectory(),folderName);
-            
-            if(file.Length > 0)
+            try
             {
-                var filename = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName;
-                var fullPath = Path.Combine(pathToSave, filename.Replace("\"","").Trim());
-                
-                using(var stream = new FileStream(fullPath, FileMode.Create))
+                var file = Request.Form.Files[0];
+                var folderName = Path.Combine("Resources", "Images");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+                if (file.Length > 0)
                 {
-                    file.CopyTo(stream);
+                    var filename = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName;
+                    var fullPath = Path.Combine(pathToSave, filename.Replace("\"", " ").Trim());
+
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        //gera o arquivo
+                        file.CopyTo(stream);
+                    }
                 }
+
+                return Ok();
             }
-            return Ok();
+            catch (System.Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco Dados Falhou {ex.Message}");
+            }
+
+            return BadRequest("Erro ao tentar realizar upload");
         }
 
 
@@ -70,13 +82,13 @@ namespace ProaAgil.Application.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AdicionarEventos (EventoDto evento) 
+        public async Task<IActionResult> AdicionarEventos (EventoDto eventoExterno) 
         {
-            var eventoParaAdicionar = _mapper.Map<Evento>(evento);
+            var eventoParaAdicionar = _mapper.Map<Evento>(eventoExterno);
             _repository.Add (eventoParaAdicionar);
             if (await _repository.SaveChangesAsync ())
              {
-                return Created ($"/api/evento/{evento.Id}", evento);
+                return Created ($"/api/evento/{eventoExterno.Id}", eventoExterno);
             } 
             else 
             {

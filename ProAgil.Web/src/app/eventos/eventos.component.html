@@ -33,7 +33,7 @@
   <tbody *ngIf=" eventos && eventos.length">
     <tr *ngFor="let evento of eventosFiltrados">
       <td>
-        <img *ngIf="mostrarImagem" src="http://localhost:10005/resources/images/{{evento.imagemUrl}}"
+        <img *ngIf="mostrarImagem" src="http://localhost:10005/img/{{evento.imagemUrl}}"
           [style.width.px]="imagemLargura" [style.margin.px]="imagemMargem">
       </td>
       <td>{{evento.id}}</td>
@@ -147,13 +147,12 @@
               <table>
                 <tr>
                   <td>
-                    <button class="btn btn-sucess" (click)="file.click()">
+                    <button class="btn btn-success" (click)="file.click()">
                       Enviar Imagem
-                    </button> 
-                  <input type="file" #file [ngClass]="{'is-invalid': registerForm.get('imagemUrl').errors 
-      && registerForm.get('imagemUrl').touched}" (change)="onFileChange($event)" class="form-control is-invalid" formControlName="imagemUrl"
-                    placeholder="imagem"
-                    style="display: none">
+                    </button>
+                    <input type="file" #file [ngClass]="{'is-invalid': registerForm.get('imagemUrl').errors 
+        && registerForm.get('imagemUrl').touched}" (change)="onFileChange($event)" class="form-control is-invalid"
+                      formControlName="imagemUrl" placeholder="" style="display: none">
                   </td>
                 </tr>
               </table>
@@ -162,8 +161,7 @@
                 Imagem é obrigatório.
               </div>
             </div>
-          </div>
-          <div class="form-row">
+          </div><div class="form-row">
             <div class="form-group col-md-4">
               <label>Telefone</label>
               <input type="text" class="form-control" [ngClass]="{'is-invalid': registerForm.get('telefone').errors 
