@@ -33,7 +33,7 @@
   <tbody *ngIf=" eventos && eventos.length">
     <tr *ngFor="let evento of eventosFiltrados">
       <td>
-        <img *ngIf="mostrarImagem" src="http://localhost:10005/img/{{evento.imagemUrl}}"
+        <img *ngIf="mostrarImagem" src="http://localhost:10005/Resources/Images/{{evento.imagemUrl}}"
           [style.width.px]="imagemLargura" [style.margin.px]="imagemMargem">
       </td>
       <td>{{evento.id}}</td>
@@ -200,11 +200,6 @@
   </div>
 </div>
 
-<button class="btn btn-sm btn-danger" tooltip="Excluir" (click)="excluirEvento(evento, confirm)">
-  <i class="fa fa-eraser"></i>
-</button>
-
-
 
 <div bsModal #confirm="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
   <div class="modal-dialog modal-sm">
@@ -225,7 +220,7 @@
           Cancelar
         </button>
         <button type="button" class="btn btn-outline-danger" (click)="confirmeDelete(confirm)">
-          DELETAR
+          Deletar
         </button>
       </div>
     </div>

@@ -42,17 +42,24 @@ namespace ProaAgil.Application {
         public void Configure (IApplicationBuilder app, IWebHostEnvironment env) {
             if (env.IsDevelopment ()) {
                 app.UseDeveloperExceptionPage ();
+            } else 
+            {
+                app.UseExceptionHandler (appBuilder => {
+                    appBuilder.Run (async context => {
+                        context.Response.StatusCode = 500;
+                        await context.Response.WriteAsync ("Vish, apresentamos um erro interno :( tente revisar os dados e tentar novamente");
+                    });
+                });
             }
-              app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());   
-            app.UseStaticFiles();
-           app.UseStaticFiles(new StaticFileOptions(){
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
-                RequestPath = new PathString("/Resources")
+            app.UseCors (x => x.AllowAnyOrigin ().AllowAnyMethod ().AllowAnyHeader ());
+            app.UseStaticFiles ();
+            app.UseStaticFiles (new StaticFileOptions () {
+                FileProvider = new PhysicalFileProvider (Path.Combine (Directory.GetCurrentDirectory (), @"Resources")),
+                    RequestPath = new PathString ("/Resources")
             });
             app.UseStaticFiles ();
-         
+
             app.UseMvc ();
         }
     }
 }
-

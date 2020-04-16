@@ -36,8 +36,7 @@ namespace ProaAgil.Application.Controllers
      [HttpPost("upload")]
         public async Task<IActionResult> Upload()
         {
-            try
-            {
+            
                 var file = Request.Form.Files[0];
                 var folderName = Path.Combine("Resources", "Images");
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
@@ -55,15 +54,10 @@ namespace ProaAgil.Application.Controllers
                 }
 
                 return Ok();
-            }
-            catch (System.Exception ex)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco Dados Falhou {ex.Message}");
-            }
-
-            return BadRequest("Erro ao tentar realizar upload");
+       
+    
         }
-
+       
 
         [HttpGet ("{eventoId}")]
         public async Task<IActionResult> ObterEventoPorId (int eventoId) 
