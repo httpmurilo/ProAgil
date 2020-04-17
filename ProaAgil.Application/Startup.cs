@@ -58,7 +58,6 @@ namespace ProaAgil.Application {
                     RequestPath = new PathString ("/Resources")
             });
             app.UseStaticFiles ();
-
             app.UseMvc ();
         }
     }

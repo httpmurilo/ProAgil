@@ -56,6 +56,7 @@ dataEvento: string;
     this.modoSalvar = 'put';
     this.openModal(template);
     this.evento = Object.assign({}, evento);
+   this.evento.imagemUrl = '';
     this.registerForm.patchValue(this.evento);
   }
 
@@ -138,9 +139,7 @@ dataEvento: string;
     if (this.registerForm.valid) {
       if (this.modoSalvar === 'post') {
         this.evento = Object.assign({}, this.registerForm.value);
-
         this.uploadImagem();
-
         this.eventoService.postEvento(this.evento).subscribe(
           (novoEvento: Evento) => {
             template.hide();
@@ -150,11 +149,10 @@ dataEvento: string;
             this.toastr.error(`Erro ao Inserir: ${error}`);
           }
         );
-      } else {
+      } else 
+      {
         this.evento = Object.assign({ id: this.evento.id }, this.registerForm.value);
-
         this.uploadImagem();
-
         this.eventoService.putEvento(this.evento).subscribe(
           () => {
             template.hide();
