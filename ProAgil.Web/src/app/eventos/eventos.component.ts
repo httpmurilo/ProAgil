@@ -56,6 +56,7 @@ dataEvento: string;
     this.modoSalvar = 'put';
     this.openModal(template);
     this.evento = Object.assign({}, evento);
+    this.fileNameToUpdate = evento.imagemUrl.toString();
    this.evento.imagemUrl = '';
     this.registerForm.patchValue(this.evento);
   }

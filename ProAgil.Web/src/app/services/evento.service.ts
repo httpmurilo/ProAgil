@@ -17,8 +17,8 @@ getAllEvento(): Observable<Evento[]>{
 getEventoByTema(tema:string): Observable<Evento[]>{
   return this.http.get<Evento[]>(`${this.baseUrl}/getByTema/{tema}`);
 }
-getEventoById(id:number): Observable<Evento[]>{
-  return this.http.get<Evento[]>(`${this.baseUrl}/${id}`);
+getEventoById(id:number): Observable<Evento>{
+  return this.http.get<Evento>(`${this.baseUrl}/${id}`);
 }
 
 postUpload(file: File, name: string) {

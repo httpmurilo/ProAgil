@@ -12,28 +12,27 @@ export class AuthService {
   decodedToken: any;
 
   constructor(private http:HttpClient) { }
-  
-  login(model:any){
+  login(model: any) {
     return this.http
-      .post(`${this.baseUrl}login`,model).pipe(
-        map((response:any ) => {
+      .post(`${this.baseUrl}login`, model).pipe(
+        map((response: any) => {
           const user = response;
-          if(user){
-            localStorage.setItem('token',user.token);
+          if (user) {
+            localStorage.setItem('token', user.token);
             this.decodedToken = this.jwtHelper.decodeToken(user.token);
-
+            sessionStorage.setItem('username', this.decodedToken.unique_name);
           }
         })
-      )
+      );
   }
-  register(model:any){
-    return this.http.post(`${this.baseUrl}register`,model);
 
+  register(model: any) {
+    return this.http.post(`${this.baseUrl}register`, model);
   }
-  loggedIn(){
+
+  loggedIn() {
     const token = localStorage.getItem('token');
-    return this.jwtHelper.isTokenExpired(token);
-
+    return !this.jwtHelper.isTokenExpired(token);
   }
 
 }

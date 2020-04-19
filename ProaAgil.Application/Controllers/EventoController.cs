@@ -76,6 +76,7 @@ namespace ProaAgil.Application.Controllers
         }
 
         [HttpPost]
+  
         public async Task<IActionResult> AdicionarEventos (EventoDto eventoExterno) 
         {
             var eventoParaAdicionar = _mapper.Map<Evento>(eventoExterno);
