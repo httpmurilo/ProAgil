@@ -1,3 +1,12 @@
+=================
+![GitHub repo size](https://img.shields.io/github/repo-size/httpmurilo/ProAgil)
+![GitHub last commit](https://img.shields.io/github/last-commit/httpmurilo/ProAgil)
+![GitHub language count](https://img.shields.io/github/languages/count/httpmurilo/ProAgil)
+![GitHub top language](https://img.shields.io/github/languages/top/httpmurilo/ProAgil)
+
+
+
+
 # Eventos
 
 
@@ -11,6 +20,8 @@ O projeto consiste em uma demo  com WebApi e Angular, nele o usuário consegue g
 
 *Angular
 >  ng build no projeto Web (pode ir pegar uma agua e um café)
+
+* Opcionalmente, poderá utilizar o docker
 
 
  
@@ -27,7 +38,7 @@ O projeto consiste em uma demo  com WebApi e Angular, nele o usuário consegue g
 * Ngx-bootstrap
 * Identity Core 2
 * JWT
-** angular-jwt
+* * angular-jwt
 * Local Storage
 * Two Way Data binding
 
