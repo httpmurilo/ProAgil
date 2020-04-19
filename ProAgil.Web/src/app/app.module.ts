@@ -2,13 +2,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import{FormsModule, ReactiveFormsModule} from '@angular/forms'
 import { AppRoutingModule } from './app-routing.module';
-import { TooltipModule, ModalModule, BsDropdownModule} from 'ngx-bootstrap';
+import { TooltipModule, ModalModule, BsDropdownModule, TabsModule} from 'ngx-bootstrap';
 //angular 9 nao suporte o tipo de exportacao 
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-
+import { NgxMaskModule } from 'ngx-mask';
 
 import { DateTimeFormatPipePipe } from './helper/DateTimeFormatPipe.pipe';
 
@@ -19,6 +19,11 @@ import { PalestrantesComponent } from './palestrantes/palestrantes.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ContatosComponent } from './contatos/contatos.component';
 import { TituloComponent} from './shared/titulo/titulo.component';
+import { UserComponent } from './user/user.component';
+import { LoginComponent } from './user/login/login.component';
+import { RegistrationComponent } from './user/registration/registration.component';
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { EventoService } from './services/evento.service';
 
 
 @NgModule({
@@ -30,22 +35,38 @@ import { TituloComponent} from './shared/titulo/titulo.component';
       DashboardComponent,
       ContatosComponent,
       TituloComponent,
-      DateTimeFormatPipePipe
+      DateTimeFormatPipePipe,
+      UserComponent,
+      LoginComponent,
+      RegistrationComponent
    ],
    imports: [
       BrowserModule,
+      BsDropdownModule.forRoot(),
+      BsDatepickerModule.forRoot(),
+      TooltipModule.forRoot(),
+      ModalModule.forRoot(),
+      TabsModule.forRoot(),
+      NgxMaskModule.forRoot(),
+      NgxCurrencyModule,
+      BrowserAnimationsModule,
+      ToastrModule.forRoot({
+         timeOut: 3000,
+         preventDuplicates: true,
+         progressBar: true
+      }),
       AppRoutingModule,
       HttpClientModule,
       FormsModule,
-      BsDropdownModule.forRoot(),
-      TooltipModule.forRoot(),
-      ModalModule.forRoot(),
-      BsDatepickerModule.forRoot(),
-      BrowserAnimationsModule,
-      ReactiveFormsModule,
-      ToastrModule.forRoot()
+      ReactiveFormsModule
    ],
-   providers: [],
+   providers: [
+      EventoService,{
+         provide: HTTP_INTERCEPTORS,
+         useClass: AuthInterceptor,
+         multi: true
+      }
+   ],
    bootstrap: [
       AppComponent
    ]

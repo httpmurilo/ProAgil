@@ -6,7 +6,10 @@ O projeto consiste em uma demo  com WebApi e Angular, nele o usuário consegue g
 
 ### Para utilização
 
+*API
 > dotnet run no projeto Application
+
+*Angular
 >  ng build no projeto Web (pode ir pegar uma agua e um café)
 
 
@@ -23,6 +26,10 @@ O projeto consiste em uma demo  com WebApi e Angular, nele o usuário consegue g
 * Reactive Forms
 * Ngx-bootstrap
 * Identity Core 2
+* JWT
+** angular-jwt
+* Local Storage
+* Two Way Data binding
 
 
 

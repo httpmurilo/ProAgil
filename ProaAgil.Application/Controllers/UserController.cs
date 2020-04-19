@@ -36,7 +36,7 @@ namespace ProaAgil.Application.Controllers {
         }
 
         [HttpPost ("Register")]
-      
+        [AllowAnonymous]
         public async Task<IActionResult> Register (UserDto userDto) {
             var usuario = _Mapper.Map<User> (userDto);
             var resultado = await _userManager.CreateAsync (usuario, userDto.Password);

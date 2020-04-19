@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -7,9 +10,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavComponent implements OnInit {
 
-  constructor() { }
+  constructor(private toastr: ToastrService,
+    private authService: AuthService,
+    public router:Router) { }
 
   ngOnInit() {
   }
 
+  showMenu() {
+    return this.router.url !== '/user/login';
+  }
+
+  loggedIn() {
+    return this.authService.loggedIn();
+  }
+
+  entrar() {
+    this.router.navigate(['/user/login']);
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.toastr.show('Log Out');
+    this.router.navigate(['/user/login']);
+  }
+
+  userName() {
+    return sessionStorage.getItem('username');
+  }
 }
